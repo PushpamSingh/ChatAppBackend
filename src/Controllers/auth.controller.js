@@ -120,7 +120,8 @@ const login=Asynchandler(async(req,res)=>{
         const option={
             httpOnly:true,
             secure:true,
-            sameSite:'None'
+            sameSite:'None',
+            path:'/',
         }
 
         res.status(200)
@@ -162,7 +163,8 @@ const logout=Asynchandler(async(req,res)=>{
         const option={
             httpOnly:true,
             secure:true,
-            sameSite:'None'
+            sameSite:'None',
+            path:'/'
         }
         res.status(200)
         .clearCookie('accessToken',option)

@@ -9,7 +9,7 @@ export const app=express();
 
 app.use(cors(
     {
-        origin:[process.env.CORS_ORIGIN],
+        origin:[process.env.CORS_ORIGIN1, process.env.CORS_ORIGIN2, process.env.CORS_ORIGIN3],
         credentials:true,
         optionsSuccessStatus: 200,
     }

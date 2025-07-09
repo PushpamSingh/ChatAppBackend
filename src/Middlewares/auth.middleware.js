@@ -13,10 +13,17 @@ export const VerifyJWT=async(req,res,next)=>{
         if(!token){
             throw new ApiError(401,"Unauthorized - Token not found")
         }
-        const decodeToken=await jwt.verify(token,process.env.ACCESS_TOKEN_SECRET);
-        if(!decodeToken){
-            throw new ApiError(401,"Unauthorized - Invalid Token")
-        }
+       try {
+         const decodeToken=await jwt.verify(token,process.env.ACCESS_TOKEN_SECRET);
+         if(!decodeToken){
+             throw new ApiError(401,"Unauthorized - Invalid Token")
+         }
+       } catch (error) {
+         next(error)
+            res.status(500).json(
+             new ApiError(404,error?.message)
+        )
+       }
 
         const user=await User.findById(decodeToken?._id).select("-password -refreshToken")
 

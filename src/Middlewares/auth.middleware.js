@@ -18,20 +18,19 @@ export const VerifyJWT=async(req,res,next)=>{
          if(!decodeToken){
              throw new ApiError(401,"Unauthorized - Invalid Token")
          }
-       } catch (error) {
-         next(error)
-            res.status(500).json(
-             new ApiError(404,error?.message)
-        )
-       }
-
-        const user=await User.findById(decodeToken?._id).select("-password -refreshToken")
+         const user=await User.findById(decodeToken?._id).select("-password -refreshToken")
 
         if(!user){
             throw new ApiError(404,"Unauthorized - User not found goto log in page")
         }
         req.user=user;
         next()
+       } catch (error) {
+         next(error)
+            res.status(404).json(
+             new ApiError(404,error?.message)
+        )
+       }
     } catch (error) {
         // console.log("Error :: verifyJWT :: ",error);    
         next(error)

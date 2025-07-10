@@ -251,8 +251,7 @@ const getCurrentUser=Asynchandler(async(req,res)=>{
     try {
         const userId=req.user?._id;
         if(!isValidObjectId(userId)){
-            throw new ApiError(401,"Uauthorized - Invalid User Id");
-            
+            throw new ApiError(401,"Uauthorized - Invalid User Id");  
         }
 
         return res.status(200)

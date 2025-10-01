@@ -11,8 +11,8 @@ const generateAccessAndRefreshToken=async(userId)=>{
         if(!user){
             throw new ApiError(404,"user not found in generate token")
         }
-        const accessToken=user.generateAccessToken();
-        const refreshToken=user.generateRefreshToken();
+        const accessToken=await user.generateAccessToken();
+        const refreshToken=await user.generateRefreshToken();
         user.refreshToken=refreshToken;
         await user.save({validateBeforeSave:false})
         // console.log("accesstoken, refreshToken: ",accessToken,refreshToken);
